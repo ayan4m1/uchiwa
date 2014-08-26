@@ -19,6 +19,10 @@ controllerModule.controller('init', ['$scope', 'notification', 'socket', 'Page',
       }
     });
     $scope.filters = {text: ''};
+    $scope.heartbeat = {
+      animate: false,
+      time: new Date()
+    };
   }
 ]);
 
@@ -287,8 +291,8 @@ controllerModule.controller('info', ['$scope', 'socket', 'version', 'Page',
 /**
  * Navbar
  */
-controllerModule.controller('navbar', ['$scope', 'routingService',
-  function ($scope, routingService) {
+controllerModule.controller('navbar', ['$scope', '$interval', 'routingService',
+  function ($scope, $interval, routingService) {
 
     // Services
     $scope.go = routingService.go;
@@ -334,6 +338,12 @@ controllerModule.controller('navbar', ['$scope', 'routingService',
       $scope.countStatuses($scope.events, function (item) {
         return item.check.status;
       });
+
+      $scope.heartbeat.animate = true;
+      $scope.heartbeat.time = new Date();
+      $interval(function() {
+        $scope.heartbeat.animate = false;
+      }, 1000, 0, false);
     });
   }
 ]);

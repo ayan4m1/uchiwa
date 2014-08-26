@@ -119,6 +119,20 @@
             </div>
           </div>
         </li>
+        <li class="show-on-hover">
+          <a>
+            <i class="fa fa-refresh dropdown-toggle" ng-class="heartbeat.animate ? 'fa-spin' : ''" data-toggle="dropdown"></i><span class="badge badge-default"></span>
+          </a>
+          <div class="dropdown-menu" role="menu">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="panel panel-body panel-top panel-blue">
+                  <span class="category">Last updated <br><span am-time-ago="heartbeat.time"></span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
       </ul>
 
     </div><!-- /.navbar-collapse -->

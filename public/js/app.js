@@ -11,7 +11,8 @@ angular.module('uchiwa', [
   'ngRoute',
   // 3rd party dependencies
   'btford.socket-io',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'angularMoment'
 ]);
 
 angular.module('uchiwa').config(['$routeProvider', 'notificationProvider',
