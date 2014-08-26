@@ -15,8 +15,8 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="panel panel-body panel-top panel-{{events.style}}">
-                  <span class="total">{{events.total}}</span> 
-                  <span class="category"><ng-pluralize count="events.total" when="{'0': 'event', '1': 'event', 'other': 'events'}"></ng-pluralize></span>
+                  <span class="total">{{events.total}}</span>
+                  <span class="category"><ng-pluralize count="events.total" when="{'0': 'events', '1': 'event', 'other': 'events'}"></ng-pluralize></span>
                 </div>
                 <div class="panel panel-body panel-bottom panel-default">
                   <span class="circle circle-critical"></span> Critical <span class="pull-right count">{{events.critical}}</span>
@@ -37,8 +37,8 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="panel panel-body panel-top panel-{{clients.style}}">
-                  <span class="total">{{clients.total}}</span> 
-                  <span class="category"><ng-pluralize count="clients.total" when="{'0': 'client', '1': 'client', 'other': 'clients'}"></ng-pluralize></span>
+                  <span class="total">{{clients.total}}</span>
+                  <span class="category"><ng-pluralize count="clients.total" when="{'0': 'clients', '1': 'client', 'other': 'clients'}"></ng-pluralize></span>
                 </div>
                 <div class="panel panel-body panel-bottom panel-default">
                   <span class="circle circle-critical"></span> Critical <span class="pull-right count">{{clients.critical}}</span>
@@ -59,8 +59,8 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="panel panel-body panel-top panel-blue">
-                  <span class="total">{{dc.length}}</span> 
-                  <span class="category"><ng-pluralize count="dc.length" when="{'0': 'datacenter', '1': 'datacenter', 'other': 'datacenters'}"></ng-pluralize></span>
+                  <span class="total">{{dc.length}}</span>
+                  <span class="category"><ng-pluralize count="dc.length" when="{'0': 'datacenters', '1': 'datacenter', 'other': 'datacenters'}"></ng-pluralize></span>
                 </div>
                 <div class="panel panel-body panel-bottom panel-default">
                   <div ng-repeat="datacenter in dc">
@@ -97,8 +97,8 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="panel panel-body panel-top panel-blue">
-                  <span class="total">{{checks.length}}</span> 
-                  <span class="category"><ng-pluralize count="checks.length" when="{'0': 'check', '1': 'check', 'other': 'checks'}"></ng-pluralize></span>
+                  <span class="total">{{checks.length}}</span>
+                  <span class="category"><ng-pluralize count="checks.length" when="{'0': 'checks', '1': 'check', 'other': 'checks'}"></ng-pluralize></span>
                 </div>
               </div>
             </div>
@@ -112,8 +112,8 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="panel panel-body panel-top panel-blue">
-                  <span class="total">{{stashes.length}}</span> 
-                  <span class="category"><ng-pluralize count="stashes.length" when="{'0': 'stash', '1': 'stash', 'other': 'stashes'}"></ng-pluralize></span>
+                  <span class="total">{{stashes.length}}</span>
+                  <span class="category"><ng-pluralize count="stashes.length" when="{'0': 'stashes', '1': 'stash', 'other': 'stashes'}"></ng-pluralize></span>
                 </div>
               </div>
             </div>
