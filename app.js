@@ -66,7 +66,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 /**
- * Authentification
+ * Authentication
  */
 if (config.uchiwa.user && config.uchiwa.pass) {
   var basicAuth = express.basicAuth(function (username, password) {
