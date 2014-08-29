@@ -16,30 +16,59 @@ directiveModule.directive('siteTheme', ['$cookieStore', 'settings', function ($c
     restrict: 'EA',
     link: function (scope, element) {
       scope.themes = [
-        {
-          name: 'default'
-        },
-        {
-          name: 'dark'
-        }
+        { name: 'default' },
+        { name: 'dark' }
       ];
-      var lookupTheme = function (themeName) {
+
+      function lookupTheme(themeName) {
         return scope.themes[scope.themes.map(function (t) {
           return t.name;
         }).indexOf(themeName)];
-      };
-      var setTheme = function (theme) {
+      }
+
+      function setTheme(theme) {
         var themeName = angular.isObject(theme) && angular.isDefined(theme.name) ? theme.name : settings.theme;
         scope.currentTheme = lookupTheme(themeName);
         $cookieStore.put('currentTheme', scope.currentTheme);
         var fullThemeName = 'uchiwa-' + scope.currentTheme.name;
         element.attr('href', 'css/' + fullThemeName + '/' + fullThemeName + '.css');
-      };
-      scope.$on('theme:changed', function (event, theme) {
+      }
+
+      scope.$on('theme:changed', function(event, theme) {
         setTheme(theme);
       });
 
       setTheme($cookieStore.get('currentTheme'));
+    }
+  };
+}]);
+
+directiveModule.directive('sitePalette', ['$cookieStore', 'settings', function($cookieStore, settings) {
+  return {
+    restrict: 'EA',
+    link: function(scope, element) {
+      scope.palettes = [
+        'default',
+        'protanopia'
+      ];
+
+      function setPalette(palette) {
+        scope.currentPalette = angular.isDefined(palette) ? palette : settings.palette;
+        $cookieStore.put('currentPalette', scope.currentPalette);
+
+        if (palette == 'default') {
+          element.removeAttr('href');
+        } else {
+          element.attr('href', 'css/palettes/' + palette + '.css');
+        }
+      }
+
+      scope.$on('palette:changed', function(event, palette) {
+        debugger;
+        setPalette(palette);
+      });
+
+      setPalette($cookieStore.get('currentPalette'));
     }
   };
 }]);

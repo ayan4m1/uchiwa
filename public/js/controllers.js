@@ -344,6 +344,9 @@ controllerModule.controller('settings', ['$cookies', '$scope', 'Page',
     $scope.$watch('currentTheme', function (theme) {
       $scope.$emit('theme:changed', theme);
     });
+    $scope.$watch('currentPalette', function (palette) {
+      $scope.$emit('palette:changed', palette);
+    });
   }
 ]);
 

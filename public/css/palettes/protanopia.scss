@@ -1,0 +1,55 @@
+@import "../bootstrap-uchiwa/variables";
+@import "../../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/mixins";
+
+$black: 		#000;
+$green-dark: 	#2d4821;
+$blue-dark: 	#214c62;
+$red-dark: 		#6c4a00;
+$red: 			#d2322d;
+$yellow: 		#b9b186;
+
+$brand-success: $green-dark;
+$brand-info: 	$blue-dark;
+$brand-warning: $yellow;
+$brand-danger:  $red-dark;
+
+$critical-color: $red-dark;
+$warning-color: $yellow;
+$success-color: $green-dark;
+$unknown-color: $black;
+
+$state-success-text:             $brand-success;
+$state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%);
+$state-info-text:                $brand-info;
+$state-info-border:              darken(adjust-hue($state-info-bg, -10), 7%);
+$state-warning-text:             $brand-warning;
+$state-warning-border:           darken(adjust-hue($state-warning-bg, -10), 5%);
+$state-danger-text:              $brand-danger;
+$state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%);
+
+// Fixes button coloring
+$btn-success-bg: $brand-success;
+$btn-info-bg:    $brand-info;
+$btn-warning-bg: $brand-warning;
+$btn-danger-bg:  $brand-danger;
+@import "../uchiwa-default/buttons";
+
+// Fixes top bar dropdown coloring
+$panel-success-background-color: $brand-success;
+$panel-info-background-color:    $brand-info;
+$panel-warning-background-color: $brand-warning;
+$panel-danger-background-color:  $brand-danger;
+@import "../uchiwa-default/panel";
+
+// Fixes client check status coloring
+$well-success-border-left: 3px solid $brand-success;
+$well-info-border-left:    3px solid $brand-info;
+$well-warning-border-left: 3px solid $brand-warning;
+$well-danger-border-left:  3px solid $brand-danger;
+@import "../uchiwa-default/well";
+
+// Fixes badge coloring
+@import "../uchiwa-default/badge";
+
+// Fixes text- contextual classes
+@import "../../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/type";
