@@ -1,11 +1,10 @@
 {
   "name": "uchiwa",
-  "private": true,
+  "version": "0.3.0",
   "ignore": [
     "**/.*",
     "lib",
-    "node_modules",
-    "src/test"
+    "node_modules"
   ],
   "dependencies": {
     "angular": "~1.2.16",
