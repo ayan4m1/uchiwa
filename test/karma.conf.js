@@ -19,10 +19,10 @@ module.exports = function(config) {
     reporters: ['junit', 'coverage', 'dots'],
     coverageReporter: {
       type: 'html',
-      dir: 'build/coverage/'
+      dir: 'build/coverage'
     },
     preprocessors: {
-      'public/js/**/*.js': ['coverage']
+      'src/js/**/*.js': ['coverage']
     },
     junitReporter: {
       outputFile: 'build/unit/test-results.xml'
