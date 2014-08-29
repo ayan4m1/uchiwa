@@ -12,16 +12,10 @@ var yargs = require('yargs')
     .default('c', './config.json');
 var argv = yargs.argv;
 
-// Check config file
-if (!fs.existsSync(argv.c)) {
-  yargs.showHelp();
-  console.log('Config file must exist and be readable.');
-  process.exit(1);
-}
 try {
   var config = require(argv.c);
 } catch (e) {
-  console.log('Syntax error with the config file ' + argv.c);
+  console.log('Syntax error with the config file ' + argv.c + ': ' + e);
   process.exit(1);
 }
 
@@ -58,14 +52,14 @@ moment.defaultFormat = dateFormat;
 app.set('port', process.env.PORT || port);
 app.set('host', process.env.HOST || host);
 app.engine('.html', require('ejs').__express);
-app.set('views', path.join(__dirname, 'public'));
+app.set('views', './dist');
 app.set('view engine', 'html');
 app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('./dist'));
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 /**

@@ -6,8 +6,9 @@ results
 node_modules
 /config.js
 /config.json
-public/bower_components
+lib
 .sass-cache
 npm-debug.log
 build
 .idea/
+dist

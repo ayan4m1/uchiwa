@@ -3,11 +3,9 @@
   "private": true,
   "ignore": [
     "**/.*",
+    "lib",
     "node_modules",
-    "bower_components",
-    "public/bower_components",
-    "test",
-    "tests"
+    "src/test"
   ],
   "dependencies": {
     "angular": "~1.2.16",
