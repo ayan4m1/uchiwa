@@ -21,6 +21,13 @@ controllerModule.controller('init', ['$scope', 'notification', 'socket', 'Page',
   }
 ]);
 
+controllerModule.controller('dashboard', ['$scope', 'Page',
+  function ($scope, Page) {
+    Page.setTitle('Dashboard');
+    $scope.pageHeaderText = 'Dashboard';
+  }
+]);
+
 /**
  * Checks
  */

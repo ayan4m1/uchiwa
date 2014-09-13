@@ -18,6 +18,7 @@ angular.module('uchiwa').config(['$routeProvider', 'notificationProvider',
   function ($routeProvider, notificationProvider) {
     $routeProvider
       .when('/', {redirectTo: function () { return '/events'; }})
+      .when('/dashboard', {templateUrl: 'partials/dashboard/index.html', reloadOnSearch: false, controller: 'dashboard'})
       .when('/events', {templateUrl: 'partials/events/index.html', reloadOnSearch: false, controller: 'events'})
       .when('/client/:dcId/:clientId', {templateUrl: 'partials/client/index.html', reloadOnSearch: false, controller: 'client'})
       .when('/clients', {templateUrl: 'partials/clients/index.html', reloadOnSearch: false, controller: 'clients'})
