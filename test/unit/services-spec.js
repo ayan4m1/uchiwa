@@ -93,4 +93,12 @@ describe('services', function () {
 
   });
 
+  describe('d3', function () {
+
+    it('should define d3', inject(function (d3) {
+      expect(d3).toBe(window.d3);
+    }));
+
+  });
+
 });

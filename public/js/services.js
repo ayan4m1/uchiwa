@@ -53,6 +53,17 @@ serviceModule.factory('underscore', function () {
 });
 
 /**
+ * d3
+ */
+serviceModule.factory('d3', function () {
+  if (angular.isUndefined(window.d3)) {
+    console.log('d3 is required');
+  } else {
+    return window.d3;
+  }
+});
+
+/**
  * Clients
  */
 serviceModule.service('clientsService', ['socket', '$location', function (socket, $location) {
