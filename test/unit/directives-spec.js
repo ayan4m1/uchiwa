@@ -10,6 +10,17 @@ describe('directives', function () {
     element = jasmine.createSpyObj('element', ['tooltip', 'attr', 'removeAttr', 'addClass']);
   }));
 
+  describe('lineChart', function () {
+    it('should be restricted to elements', inject(function (lineChartDirective) {
+      expect(lineChartDirective[0].restrict).toBe('E');
+    }));
+
+    it('should have a link method', inject(function (lineChartDirective) {
+      expect(lineChartDirective[0].link).toBeDefined();
+    }));
+
+  });
+
   describe('bootstrapTooltip', function () {
 
     it('should be restricted to elements and attributes', inject(function (bootstrapTooltipDirective) {

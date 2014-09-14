@@ -2,6 +2,7 @@
 
 describe('Controller', function () {
   var $rootScope;
+  var $interval;
   var $scope;
   var createController;
   var mockNotification;
@@ -33,10 +34,11 @@ describe('Controller', function () {
     });
   });
 
-  beforeEach(inject(function ($controller, _$rootScope_, _socket_) {
+  beforeEach(inject(function ($controller, _$rootScope_, _socket_, _$interval_) {
     $rootScope = _$rootScope_;
     $scope = $rootScope.$new();
     socket = _socket_;
+    $interval = _$interval_;
     createController = function (controllerName, properties) {
       return $controller(controllerName, _.extend({
         '$scope': $scope
@@ -148,6 +150,14 @@ describe('Controller', function () {
       expect(socket.emit).toHaveBeenCalledWith(expectedEventName, expectedPayload);
     });
 
+    it('should cancel timer on $destroy', function () {
+      spyOn($interval, 'cancel');
+      createController(controllerName);
+
+      $scope.$destroy();
+      expect($interval.cancel).toHaveBeenCalled();
+    });
+
   });
 
   describe('clients', function () {
@@ -175,6 +185,18 @@ describe('Controller', function () {
       });
 
     })
+  });
+
+  describe('dashboard', function () {
+    var controllerName = 'dashboard';
+
+    it('should have state properties', function () {
+      createController(controllerName);
+      expect($scope.stateColors).toBeDefined();
+      expect($scope.stateSummary).toBeDefined();
+      expect($scope.stateSummary.length).toBe(0);
+    });
+
   });
 
   describe('events', function () {
