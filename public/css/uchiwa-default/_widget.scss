@@ -3,16 +3,14 @@
 .widget {
   width: 100%;
   height: $widget-height;
-  padding: $widget-padding;
-  margin: $widget-padding / 4;
 
+  color: $panel-top-text-color;
   text-align: center;
-  line-height: $widget-height;
 
   background-color: $panel-default-background-color;
 
   .title {
-    color: $panel-top-text-color;
+    line-height: $widget-height;
     font-size: 64px;
   }
 
@@ -36,8 +34,19 @@
     background-color: $panel-blue-background-color;
   }
 
-  path.line {
+  g.series path {
     fill: none;
     stroke-width: 4px;
+  }
+
+  g.axis {
+    .tick text {
+      fill: $panel-top-text-color;
+    }
+
+    path {
+      fill: none;
+      stroke: $panel-top-text-color;
+    }
   }
 }

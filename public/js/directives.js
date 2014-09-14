@@ -7,38 +7,55 @@ directiveModule.directive('lineChart', ['d3', function (d3) {
     replace: true,
     restrict: 'E',
     scope: {
-      data: '='
+      data: '=',
+      colors: '='
     },
     link: function (scope, element) {
+      var keys, data, colors;
+
       var graph = d3.select(element[0])
         .append('svg')
         .attr('width', '100%')
         .attr('height', '100%');
 
+      var margin = 20;
+      var width = element.find('svg').width() - (margin * 2);
+      var height = element.find('svg').height() - (margin * 2);
+
       var scale = {
-        x: d3.time.scale().range([0, element.find('svg').width()]),
-        y: d3.scale.linear().range([element.find('svg').height(), 0])
+        x: d3.time.scale().range([margin * 2, width]),
+        y: d3.scale.linear().range([height, margin])
+      };
+
+      var axes = {
+        x: d3.svg.axis()
+          .scale(scale.x)
+          .orient('bottom')
+          .tickFormat(d3.time.format('%H:%M')),
+        y: d3.svg.axis()
+          .scale(scale.y)
+          .orient('left')
       };
 
       var line = d3.svg.line()
-        .interpolate('basis')
         .x(function (d) { return scale.x(d.timestamp); })
         .y(function (d) { return scale.y(d.value); });
 
-      var draw = function () {
-        var seriesKeys = Object.keys(scope.data[0]).filter(function (v, i) { return i != 0; });
+      var prepareData = function () {
+        // enumerate series keys and assign a color to each
+        keys = Object.keys(scope.data[0]).filter(function (v, i) { return i != 0; });
+        colors = d3.scale.ordinal().range(keys.map(function (v) {
+          return d3.rgb(scope.colors[v]);
+        }));
+        colors.domain(keys);
 
-        // get one color for each present series
-        var colors = d3.scale.category10();
-        colors.domain(seriesKeys);
-
-        // transpose data to per-series structure
-        var seriesData = colors.domain().map(function (series) {
+        // transpose the data into arrays
+        data = keys.map(function (series) {
           return {
             name: series,
             values: scope.data.map(function (v) {
               return {
-                timestamp: v.timestamp,
+                timestamp: new Date(v.timestamp),
                 value: +v[series]
               }
             })
@@ -46,15 +63,29 @@ directiveModule.directive('lineChart', ['d3', function (d3) {
         });
 
         // update scale domains
-        scale.x.domain(d3.extent(scope.data, function (v) { return v.timestamp; }));
+        scale.x.domain(d3.extent(scope.data, function (v) { return v.timestamp }));
         scale.y.domain([
-          d3.min(seriesData, function (v) { return d3.min(v.values, function (v) { return v.value }); }),
-          d3.max(seriesData, function (v) { return d3.max(v.values, function (v) { return v.value }); })
+          0,
+          d3.max(data, function (v) { return d3.max(v.values, function (v) { return v.value }); }) * 1.2
         ]);
+      };
 
+      var drawAxes = function () {
+        graph.append('g')
+          .attr('class', 'axis axis-x')
+          .attr('transform', 'translate(0, ' + height + ')')
+          .call(axes.x);
+
+        graph.append('g')
+          .attr('class', 'axis axis-y')
+          .attr('transform', 'translate(' + (margin * 2) + ', 0)')
+          .call(axes.y);
+      };
+
+      var drawData = function () {
         // create series elements
         var series = graph.selectAll('.series')
-          .data(seriesData)
+          .data(data)
           .enter()
           .append('g')
           .attr('class', 'series');
@@ -68,15 +99,18 @@ directiveModule.directive('lineChart', ['d3', function (d3) {
           .style("stroke", function(d) { return colors(d.name); });
       };
 
-      scope.$watch('data', function() {
+      // refresh graph when data changes
+      scope.$watch('data', function(data) {
+        scope.data = data;
+
         graph.selectAll('*').remove();
 
-        if (!scope.data) {
-          return;
+        if (scope.data && scope.data.length > 0) {
+          drawAxes();
+          prepareData();
+          drawData();
         }
-
-        draw();
-      });
+      }, true);
     }
   }
 }]);
