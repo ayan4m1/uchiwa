@@ -1,3 +1,4 @@
+@import "mixins";
 @import "variables";
 
 .widget {
@@ -8,11 +9,7 @@
   text-align: center;
 
   background-color: $primary-color;
-  &-success { background-color: $success-color; }
-  &-warning { background-color: $warning-color; }
-  &-critical { background-color: $critical-color; }
-  &-unknown { background-color: $unknown-color; }
-  &-blue { background-color: $secondary-color; }
+  @include context-colors;
 
   .title {
     line-height: $widget-height;
@@ -24,11 +21,7 @@
     stroke-width: 4px;
     stroke: $primary-color;
 
-    &-success { stroke: $success-color; }
-    &-warning { stroke: $warning-color; }
-    &-critical { stroke: $critical-color; }
-    &-unknown { stroke: $unknown-color; }
-    &-blue { stroke: $secondary-color; }
+    @include context-colors('stroke');
   }
 
   g.axis {
