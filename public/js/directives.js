@@ -59,12 +59,17 @@ directiveModule.directive('lineChart', ['d3', function (d3) {
 
         // update scale domains
         scale.x.domain(d3.extent(scope.data, function (v) { return v.timestamp }));
-        scale.y.domain([
-          0,
-          d3.max(data, function (v) { return d3.max(v.values, function (v) { return v.value }); }) * 1.2
+
+        // todo: remove 120% scaling factor in favor of a more elegant way to add headroom
+        scale.y.domain([0, 1.2 * d3.max(data, function (v) {
+          return d3.max(v.values, function (v) {
+            return v.value
+          });
+        })
         ]);
       };
 
+      // draw x- and y- axis
       var drawAxes = function () {
         graph.append('g')
           .attr('class', 'axis axis-x')
@@ -78,14 +83,14 @@ directiveModule.directive('lineChart', ['d3', function (d3) {
       };
 
       var drawData = function () {
-        // create series elements
+        // draw series elements
         var series = graph.selectAll('.series')
           .data(data)
           .enter()
           .append('g')
           .attr('class', 'series');
 
-        // create lines for each series
+        // draw path for each series
         var path = series.append('path')
           .attr('class', function(d) {
             return 'line line-' + d.name;
@@ -95,12 +100,13 @@ directiveModule.directive('lineChart', ['d3', function (d3) {
           });
       };
 
-      // refresh graph when data changes
+      // refresh when data changes
       scope.$watch('data', function(data) {
         graph.selectAll('*').remove();
         scope.data = data;
 
-        if (scope.data && scope.data.length > 0) {
+        // can't render anything useful until we have 2 data points
+        if (scope.data && scope.data.length > 1) {
           prepareData();
           drawAxes();
           drawData();
