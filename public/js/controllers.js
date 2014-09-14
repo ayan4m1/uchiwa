@@ -103,8 +103,8 @@ controllerModule.controller('checks', ['$scope', '$routeParams', 'routingService
 /**
  * Client
  */
-controllerModule.controller('client', ['$scope', '$routeParams', 'socket', 'clientsService', 'routingService', 'Page',
-  function ($scope, $routeParams, socket, clientsService, routingService, Page) {
+controllerModule.controller('client', ['$scope', '$routeParams', '$interval', 'socket', 'clientsService', 'routingService', 'Page',
+  function ($scope, $routeParams, $interval, socket, clientsService, routingService, Page) {
 
     $scope.predicate = '-last_status';
 
@@ -116,7 +116,7 @@ controllerModule.controller('client', ['$scope', '$routeParams', 'socket', 'clie
     };
 
     $scope.pull();
-    var timer = setInterval($scope.pull, 10000);
+    var timer = $interval($scope.pull, 10000);
 
     // Socket.IO
     $scope.$on('socket:client', function (event, data) {
@@ -174,7 +174,7 @@ controllerModule.controller('client', ['$scope', '$routeParams', 'socket', 'clie
     });
 
     $scope.$on('$destroy', function() {
-      clearInterval(timer);
+      $interval.cancel(timer);
     });
 
     // Sanitize - only display useful information
