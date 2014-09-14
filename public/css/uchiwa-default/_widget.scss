@@ -7,36 +7,28 @@
   color: $panel-top-text-color;
   text-align: center;
 
-  background-color: $panel-default-background-color;
+  background-color: $primary-color;
+  &-success { background-color: $success-color; }
+  &-warning { background-color: $warning-color; }
+  &-critical { background-color: $critical-color; }
+  &-unknown { background-color: $unknown-color; }
+  &-blue { background-color: $secondary-color; }
 
   .title {
     line-height: $widget-height;
     font-size: 64px;
   }
 
-  &-success {
-    background-color: $panel-success-background-color;
-  }
-
-  &-warning {
-    background-color: $panel-warning-background-color;
-  }
-
-  &-danger {
-    background-color: $panel-critical-background-color;
-  }
-
-  &-unknown {
-    background-color: $panel-unknown-background-color;
-  }
-
-  &-blue {
-    background-color: $panel-blue-background-color;
-  }
-
-  g.series path {
+  g.series path.line {
     fill: none;
     stroke-width: 4px;
+    stroke: $primary-color;
+
+    &-success { stroke: $success-color; }
+    &-warning { stroke: $warning-color; }
+    &-critical { stroke: $critical-color; }
+    &-unknown { stroke: $unknown-color; }
+    &-blue { stroke: $secondary-color; }
   }
 
   g.axis {

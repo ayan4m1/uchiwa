@@ -190,11 +190,10 @@ describe('Controller', function () {
   describe('dashboard', function () {
     var controllerName = 'dashboard';
 
-    it('should have state properties', function () {
+    it('should have statuses', function () {
       createController(controllerName);
-      expect($scope.stateColors).toBeDefined();
-      expect($scope.stateSummary).toBeDefined();
-      expect($scope.stateSummary.length).toBe(0);
+      expect($scope.statuses).toBeDefined();
+      expect($scope.statuses.length).toBe(0);
     });
 
   });

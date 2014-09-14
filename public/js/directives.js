@@ -7,11 +7,10 @@ directiveModule.directive('lineChart', ['d3', function (d3) {
     replace: true,
     restrict: 'E',
     scope: {
-      data: '=',
-      colors: '='
+      data: '='
     },
     link: function (scope, element) {
-      var keys, data, colors;
+      var keys, data;
 
       var graph = d3.select(element[0])
         .append('svg')
@@ -42,12 +41,8 @@ directiveModule.directive('lineChart', ['d3', function (d3) {
         .y(function (d) { return scale.y(d.value); });
 
       var prepareData = function () {
-        // enumerate series keys and assign a color to each
+        // enumerate series keys
         keys = Object.keys(scope.data[0]).filter(function (v, i) { return i != 0; });
-        colors = d3.scale.ordinal().range(keys.map(function (v) {
-          return d3.rgb(scope.colors[v]);
-        }));
-        colors.domain(keys);
 
         // transpose the data into arrays
         data = keys.map(function (series) {
@@ -92,22 +87,22 @@ directiveModule.directive('lineChart', ['d3', function (d3) {
 
         // create lines for each series
         var path = series.append('path')
-          .attr('class', 'line')
+          .attr('class', function(d) {
+            return 'line line-' + d.name;
+          })
           .attr('d', function (d) {
             return line(d.values);
-          })
-          .style("stroke", function(d) { return colors(d.name); });
+          });
       };
 
       // refresh graph when data changes
       scope.$watch('data', function(data) {
+        graph.selectAll('*').remove();
         scope.data = data;
 
-        graph.selectAll('*').remove();
-
         if (scope.data && scope.data.length > 0) {
-          drawAxes();
           prepareData();
+          drawAxes();
           drawData();
         }
       }, true);

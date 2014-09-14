@@ -26,42 +26,34 @@ controllerModule.controller('dashboard', ['$scope', 'underscore', 'Page',
     Page.setTitle('Dashboard');
     $scope.pageHeaderText = 'Dashboard';
 
-    $scope.stateColors = {
-      success: '#43AC6A',
-      warning: '#F9BA46',
-      critical: '#EA5443',
-      unknown: '#9C9990'
-    };
-
-    $scope.stateSummary = [];
+    $scope.statuses = [];
 
     // Socket.IO
     $scope.$on('socket:sensu', function (event, data) {
-      var sensu = angular.fromJson(data.content);
-      var state = {
+      var status = {
         critical: 0,
         warning: 0,
         unknown: 0,
         success: 0
       };
 
-      sensu.clients.map(function (v) {
+      angular.fromJson(data.content).clients.map(function (v) {
         return v.status;
       }).forEach(function (v) {
         if (v === 1) {
-          state.warning++;
+          status.warning++;
         } else if (v === 2) {
-          state.critical++;
+          status.critical++;
         } else if (v > 2) {
-          state.unknown++
+          status.unknown++
         } else {
-          state.success++;
+          status.success++;
         }
       });
 
-      $scope.stateSummary.push(_.extend({
+      $scope.statuses.push(_.extend({
         timestamp: new Date().getTime()
-      }, state));
+      }, status));
     });
   }
 ]);
